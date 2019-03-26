@@ -10,7 +10,7 @@
 
     <name>springboot</name>
     <packaging>war</packaging>
-    <description>Test Project For SpringBoot</description>
+    <description>A maven project to study SpringBoot</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -69,22 +69,19 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- 部署成war包时开启↓↓↓↓ -->
-        <!-- 添加jsp支持,用于编译jsp -->
-        <!-- 移除内嵌tomcat时需要添加该依赖-->
-        <!--<dependency>
+        <!-- 添加jsp支持,用于编译jsp-->
+        <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
             <scope>provided</scope>
-        </dependency>-->
+        </dependency>
 
-        <!--不移除内嵌tomcat依赖,打包的war包同时适合java -jar命令启动以及部署到外部容器中-->
+        <!--打包的war包同时适合java -jar命令启动以及部署到外部容器中-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
         </dependency>
-        <!-- 部署成war包时开启↑↑↑↑ -->
 
         <!--jsp页面使用jstl标签-->
         <dependency>
@@ -138,7 +135,7 @@
     </dependencies>
 
     <build>
-        <!--打包的名称-->
+        <!--打包的名称,默认值是${artifactId}-${version}-->
         <finalName>springboot</finalName>
         <plugins>
             <plugin>
@@ -158,7 +155,7 @@
             <resource>
                 &lt;!&ndash; 指定resources插件处理哪个目录下的资源文件 &ndash;&gt;
                 <directory>src/main/webapp</directory>
-                &lt;!&ndash; 注意此次必须要放在此目录下才能被访问到 &ndash;&gt;
+                &lt;!&ndash; 注意必须要放在此目录下才能被访问到 &ndash;&gt;
                 <targetPath>META-INF/resources</targetPath>
                 <includes>
                     <include>**/**</include>

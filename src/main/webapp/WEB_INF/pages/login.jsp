@@ -13,25 +13,32 @@
 <body>
     <div>
         <form id="login_form">
-            <label>用户名:</label><input type="text" placeholder="请输入用户名" id="username">
-            <label>密码:</label><input type="text" placeholder="请输入密码" id="password">
-            <input type="button" id="login_button">
+            <div>
+                <label>用户名:</label><input type="text" placeholder="请输入用户名" id="username">
+            </div>
+            <div>
+                <label>密码:</label><input type="text" placeholder="请输入密码" id="password">
+            </div>
+            <input type="button" id="login_button" value="登录">
         </form>
     </div>
     <script type="text/javascript">
-        $("login_button").click(function(){
-            $.ajax({
-                type:"post",
-                url:"/doLogin",
-                data:{
-                    "username":$("username").val(),
-                    "password":$("password").val()
-                },
-                dataType:"json",
-                success:function (data) {
-                    console.log(data);
-                }
-            })
+        //$(function(){});
+        $(document).ready(function(){
+            $("#login_button").click(function(){
+                $.ajax({
+                    type:"post",
+                    url:"/doLogin",
+                    data:{
+                        "username":$("username").val(),
+                        "password":$("password").val()
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        console.log(data);
+                    }
+                })
+            });
         });
     </script>
 </body>

@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @Controller
-@RequestMapping("/auth")
 public class LoginController {
 
     private static Logger logger = LoggerFactory.getLogger(LoginController.class);

@@ -3,6 +3,7 @@ package springboot.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -29,7 +30,10 @@ public class MyWebMvcConfigurerAdapter implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
         registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/META-INF/resources/","classpath:/resources/","classpath:/static/","classpath:/public/");
+                .addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/META-INF/resources/",
+                        ResourceUtils.CLASSPATH_URL_PREFIX  + "/resources/",
+                        ResourceUtils.CLASSPATH_URL_PREFIX + "/static/",
+                        ResourceUtils.CLASSPATH_URL_PREFIX + "/public/");
         //访问外部目录
         //registry.addResourceHandler("/my/**").addResourceLocations("file:D:/my/");
         //super.addResourceHandlers(registry);
@@ -43,8 +47,8 @@ public class MyWebMvcConfigurerAdapter implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry){
         //new一个拦截器对象会导致bean注入为null
-        //registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**").excludePathPatterns("/","/login","/logout","/static/**");
-        registry.addInterceptor(getMyInterceptor()).addPathPatterns("/**").excludePathPatterns("/auth/**","/error","/static/**");
+        registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**").excludePathPatterns("/","/login","/doLogin","/error","/static/**");
+        //registry.addInterceptor(getMyInterceptor()).addPathPatterns("/**").excludePathPatterns("/","/login","/doLogin","/error","/static/**");
         //super.addInterceptors(registry);
     }
 
@@ -58,7 +62,7 @@ public class MyWebMvcConfigurerAdapter implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry){
         //registry.addViewController("/").setViewName("login");
-        registry.addViewController("/").setViewName("forward:/login");
+        registry.addViewController("/error").setViewName("forward:/login");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
         //super.addViewControllers(registry);
     }
