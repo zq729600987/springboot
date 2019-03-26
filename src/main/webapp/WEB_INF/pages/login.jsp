@@ -19,19 +19,19 @@
             <div>
                 <label>密码:</label><input type="text" placeholder="请输入密码" id="password">
             </div>
-            <input type="button" id="login_button" value="登录">
+            <input type="button" id="submit" value="登录">
         </form>
     </div>
     <script type="text/javascript">
         //$(function(){});
         $(document).ready(function(){
-            $("#login_button").click(function(){
+            $("#submit").click(function(){
                 $.ajax({
                     type:"post",
                     url:"/doLogin",
                     data:{
-                        "username":$("username").val(),
-                        "password":$("password").val()
+                        "username":$("#username").val(),
+                        "password":$("#password").val()
                     },
                     dataType:"json",
                     success:function (data) {
