@@ -29,7 +29,7 @@ public class MyWebMvcConfigurerAdapter implements WebMvcConfigurer {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
-        registry.addResourceHandler("/**")
+        registry.addResourceHandler("/static/**")
                 .addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/META-INF/resources/",
                         ResourceUtils.CLASSPATH_URL_PREFIX  + "/resources/",
                         ResourceUtils.CLASSPATH_URL_PREFIX + "/static/",

@@ -8,7 +8,7 @@
 <head>
     <base href="<%=basePath%>">
     <title>用户登录</title>
-    <script type="text/javascript" src="static/jquery/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="static/js/jquery/jquery-3.3.1.js"></script>
 </head>
 <body>
     <div>
@@ -23,7 +23,6 @@
         </form>
     </div>
     <script type="text/javascript">
-        //$(function(){});
         $(document).ready(function(){
             $("#submit").click(function(){
                 $.ajax({

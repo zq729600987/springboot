@@ -35,21 +35,9 @@ public class LoginController {
             mv.setViewName("login");
         }else{
             request.getSession().setAttribute("user",user);
-            mv.setViewName("index");
+            mv.setViewName("hello");
         }
-        mv.addObject("");
         return mv;
-    }
-
-    @RequestMapping("/redis")
-    public String test(){
-        /*System.out.println(redisTemplate.opsForList().leftPushAll("test",1,2,3,4,5,6));
-        redisTemplate.opsForList().leftPop("test",1000, TimeUnit.SECONDS);*/
-        /*User user = userService.getUser();
-        template.opsForHash().put("user",user.getId(),user);
-        logger.info("--------拿到user--------");
-        User getUser = (User)template.opsForHash().get("user",user.getId());*/
-        return "hello";
     }
 
 }
