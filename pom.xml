@@ -24,18 +24,19 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <version>2.1.3.RELEASE</version>
             <exclusions>
-                <exclusion>
+                <!--<exclusion>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
+                </exclusion>-->
             </exclusions>
         </dependency>
 
-        <dependency><!-- 可用log4j2或者springboot自带的Logback -->
+        <!-- 可用log4j2或者springboot自带的logback -->
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j</artifactId>
             <version>1.3.8.RELEASE</version>
-        </dependency>
+        </dependency>-->
 
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>
