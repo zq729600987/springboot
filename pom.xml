@@ -95,7 +95,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.14</version>
-            <!--<version>5.1.21</version>-->
         </dependency>
 
         <!--自定义数据池管理-->
@@ -121,12 +120,6 @@
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-        </dependency>
-
-        <!--SpringBoot缓存支持-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
 
         <!-- 将作为Redis对象序列化器 -->
