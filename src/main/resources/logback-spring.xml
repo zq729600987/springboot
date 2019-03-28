@@ -19,11 +19,16 @@
     <!--输出到文件-->
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log.path}${log.name}</file>
+        <append>true</append><!--日志追加到文件结尾-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${log.path}logback.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>10</maxHistory><!--保留天数-->
-            <totalSizeCap>1GB</totalSizeCap><!--文件上限大小-->
+            <totalSizeCap>150MB</totalSizeCap><!--文件上限大小-->
         </rollingPolicy>
+        <!-- 超过150MB时，触发滚动策略 -->
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>150</maxFileSize>
+        </triggeringPolicy>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5p] [%c] : %L - %m%n</pattern>
         </encoder>
