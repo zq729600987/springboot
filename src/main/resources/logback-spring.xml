@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
     <contextName>logback</contextName>
-    <property name="log.path" value="d:\\Workspaces\\logback\\info.log" />
+    <property name="log.path" value="d:\\Workspaces\\logback\\" />
+    <property name="log.name" value="info.log"/>
 
     <!--输出到控制台-->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
@@ -17,9 +18,9 @@
 
     <!--输出到文件-->
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.path}</file>
+        <file>${log.path}${log.name}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logback.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${log.path}logback.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>10</maxHistory><!--保留天数-->
             <totalSizeCap>1GB</totalSizeCap><!--文件上限大小-->
         </rollingPolicy>
