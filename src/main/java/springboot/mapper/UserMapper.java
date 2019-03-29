@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface UserMapper{
     List<User> getUserList();
-    User getUser(@Param("username") String username);
+    User getUser(String username);
 }
