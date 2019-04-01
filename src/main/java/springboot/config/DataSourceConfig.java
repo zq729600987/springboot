@@ -12,6 +12,9 @@ public class DataSourceConfig {
     @Autowired
     private Environment environment;
 
+    /*@Value("${spring.datasource.driver-class-name:#{null}}")
+    private String driverClassName;*/
+
     //destroy-method="close"的作用是当数据库连接不使用的时候,就把该连接重新放到数据池中,方便下次使用调用.
     @Bean(destroyMethod = "close")
     public DruidDataSource dataSource(){

@@ -104,6 +104,13 @@
             <version>1.1.15</version>
         </dependency>
 
+        <!--物理分页插件-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.10</version>
+        </dependency>
+
         <!--redis-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
