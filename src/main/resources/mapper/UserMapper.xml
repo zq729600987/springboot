@@ -19,8 +19,17 @@
 
     <select id="getUser" resultMap="resultMap" parameterType="java.lang.String">
         SELECT
-        <include refid="baseColumnList" />
+        <include refid="column" />
         FROM user
         WHERE username = #{username}
     </select>
+    
+    <insert id="insertUser">
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into user
+        <include refid="column"/>
+        values (#{id},#{password},#{name},#{username})
+    </insert>
 </mapper>

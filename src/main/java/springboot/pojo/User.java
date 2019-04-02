@@ -1,10 +1,11 @@
 package springboot.pojo;
 
 
+import javax.persistence.Id;
 import java.io.Serializable;
 
 public class User implements Serializable {
-
+    @Id
     private Integer id;
     private String username;
     private String password;
