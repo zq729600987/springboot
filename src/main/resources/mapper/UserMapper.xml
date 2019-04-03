@@ -23,13 +23,20 @@
         FROM user
         WHERE username = #{username}
     </select>
-    
-    <insert id="insertUser">
+
+    <!--对应 @KeySql(useGeneratedKeys = true)，JDBC支持通过 getGeneratedKeys 方法取回主键的情况-->
+    <!--<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into country (id, countryname, countrycode)
+        values (#{id},#{countryname},#{countrycode})
+    </insert>-->
+
+    <!--对应 @KeySql(dialect = IdentityDialect.MYSQL)-->
+    <!--<insert id="insertUser">
         <selectKey keyProperty="id" resultType="int" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
         insert into user
         <include refid="column"/>
         values (#{id},#{password},#{name},#{username})
-    </insert>
+    </insert>-->
 </mapper>

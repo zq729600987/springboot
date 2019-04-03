@@ -7,20 +7,36 @@
     <properties resource="application.properties"/>
 
     <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!--配置是否使用通用 Mapper 自带的注释扩展，默认 true-->
+        <property name="useMapperCommentGenerator" value="false"/>
 
+        <!--通用 Mapper 插件，可以生成带注解的实体类-->
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
             <!--生成的mapper文件都继承通用mapper-->
             <property name="mappers" value="springboot.util.CommonMapper" />
             <!--caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true-->
             <property name="caseSensitive" value="true"/>
+            <!--是否强制生成注解默认 false，为true 时不管数据库名和字段名是否一致-->
+            <property name="forceAnnotation" value="false"/>
+            <!--开始和结束分隔符，对于有关键字的情况下适用-->
+            <property name="beginningDelimiter" value="`"/>
+            <property name="endingDelimiter" value="`"/>
         </plugin>
 
-        <!-- 阻止生成自动注释 -->
-        <commentGenerator>
-            <property name="javaFileEncoding" value="UTF-8"/>
-            <property name="suppressDate" value="true"/>
-            <property name="suppressAllComments" value="true"/>
-        </commentGenerator>
+        <!--通用代码生成器插件，一个模板只能生成一类的文件-->
+        <!--<plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
+            &lt;!&ndash; 一个表生成一个文件，或者多个表生成一个文件，默认为true&ndash;&gt;
+            <property name="singleMode" value="false"/>
+            <property name="targetProject" value="src/test/java"/>
+            <property name="targetPackage" value="springboot.mapper"/>
+            &lt;!&ndash; mapperXml.ftl使用，生成 XML 时获取接口的包名 &ndash;&gt;
+            &lt;!&ndash;<property name="mapperPackage" value="springboot.mapper"/>&ndash;&gt;
+            &lt;!&ndash;mapper.ftl，mapperXml.ftl，test-one.ftl，test-all.ftl&ndash;&gt;
+            <property name="templatePath" value="generator/mapper.ftl"/>
+            <property name="mapperSuffix" value="Mapper"/>
+            <property name="fileName" value="${tableClass.shortClassName}${mapperSuffix}.java"/>
+        </plugin>-->
 
         <!--数据库连接地址账号密码-->
         <jdbcConnection driverClass="${spring.datasource.driver-class-name}"
@@ -57,7 +73,12 @@
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
         </table>
+
+        <!--<table tableName="user%">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
     </context>
 </generatorConfiguration>

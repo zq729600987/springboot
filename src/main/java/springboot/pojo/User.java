@@ -6,6 +6,9 @@ import java.io.Serializable;
 
 public class User implements Serializable {
     @Id
+    //@KeySql(useGeneratedKeys = true)   //配置主键策略
+    //@KeySql(dialect = IdentityDialect.MYSQL)
+    //@KeySql(sql = "select SEQ_ID.nextval from dual", order = ORDER.BEFORE)
     private Integer id;
     private String username;
     private String password;
