@@ -27,7 +27,7 @@
         <!--通用代码生成器插件，一个模板只能生成一类的文件-->
         <!--<plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
             &lt;!&ndash; 一个表生成一个文件，或者多个表生成一个文件，默认为true&ndash;&gt;
-            <property name="singleMode" value="false"/>
+            &lt;!&ndash;<property name="singleMode" value="false"/>&ndash;&gt;
             <property name="targetProject" value="src/test/java"/>
             <property name="targetPackage" value="springboot.mapper"/>
             &lt;!&ndash; mapperXml.ftl使用，生成 XML 时获取接口的包名 &ndash;&gt;
