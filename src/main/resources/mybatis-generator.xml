@@ -8,8 +8,8 @@
 
     <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
         <property name="javaFileEncoding" value="UTF-8"/>
-        <!--配置是否使用通用 Mapper 自带的注释扩展，默认 true-->
-        <property name="useMapperCommentGenerator" value="false"/>
+        <!--配置是否使用通用 Mapper 提供的注释工具，默认 true 在生成代码时会包含字段的注释，设置 false 后会用默认的-->
+        <!--<property name="useMapperCommentGenerator" value="true"/>-->
 
         <!--通用 Mapper 插件，可以生成带注解的实体类-->
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
@@ -17,7 +17,7 @@
             <property name="mappers" value="springboot.util.CommonMapper" />
             <!--caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true-->
             <property name="caseSensitive" value="true"/>
-            <!--是否强制生成注解默认 false，为true 时不管数据库名和字段名是否一致-->
+            <!--是否强制生成注解 默认false，为true时不管数据库名和字段名是否一致-->
             <property name="forceAnnotation" value="false"/>
             <!--开始和结束分隔符，对于有关键字的情况下适用-->
             <property name="beginningDelimiter" value="`"/>
@@ -43,6 +43,8 @@
                         connectionURL="${spring.datasource.url}"
                         userId="${spring.datasource.username}"
                         password="${spring.datasource.password}">
+            <!--禁止根据自带的表生成文件-->
+            <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>
 
         <javaTypeResolver>
@@ -69,12 +71,12 @@
         </javaClientGenerator>
 
         <!--生成对应表及类名 去掉Mybatis Generator生成的一堆 example -->
-        <table tableName="" domainObjectName=""
+        <table tableName="user" domainObjectName="userTest"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 
         <!--<table tableName="user%">
