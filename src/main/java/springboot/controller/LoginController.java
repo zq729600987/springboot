@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import springboot.mapper.UserMapper;
 import springboot.pojo.User;
 import springboot.service.UserService;
 
@@ -20,6 +21,8 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserMapper userMapper;
 
     @RequestMapping("/login")
     public ModelAndView login(HttpServletRequest request, HttpServletResponse response){
@@ -27,17 +30,16 @@ public class LoginController {
     }
 
     @RequestMapping("/doLogin")
-    public ModelAndView doLogin(HttpServletRequest request, HttpServletResponse response,ModelAndView mv){
+    public String doLogin(HttpServletRequest request, HttpServletResponse response){
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         User user = userService.getUser(username);
         if(user == null){
-            mv.setViewName("login");
+
         }else{
             request.getSession().setAttribute("user",user);
-            mv.setViewName("hello");
         }
-        return mv;
+        return null;
     }
 
 }
