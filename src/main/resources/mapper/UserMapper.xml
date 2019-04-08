@@ -11,17 +11,16 @@
 
     <sql id="column">id,password,name,username</sql>
 
+    <select id="getUser" resultMap="resultMap">
+        SELECT id,name,username
+        FROM user
+        WHERE username = #{username}
+    </select>
+
     <select id="getUserList" resultMap="resultMap">
         select
         <include refid="column" />
         from user
-    </select>
-
-    <select id="getUser" resultMap="resultMap" parameterType="java.lang.String">
-        SELECT
-        <include refid="column" />
-        FROM user
-        WHERE username = #{username}
     </select>
 
     <!--对应 @KeySql(useGeneratedKeys = true)，JDBC支持通过 getGeneratedKeys 方法取回主键的情况-->

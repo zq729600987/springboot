@@ -16,8 +16,8 @@ public class MyInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         boolean flag;
-        //User user = (User) redisTemplate.opsForValue().get(request.getSession().getId());
-        User user = (User)request.getSession().getAttribute("user");
+        User user = (User) redisTemplate.opsForValue().get(request.getSession().getId());
+        //User user = (User)request.getSession().getAttribute("user");
         if(null == user){
             response.sendRedirect("login");
             flag = false;

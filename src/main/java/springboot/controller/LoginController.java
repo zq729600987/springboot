@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import springboot.mapper.UserMapper;
-import springboot.pojo.User;
 import springboot.service.UserService;
+import springboot.util.CookieUtils;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,8 +21,6 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private UserMapper userMapper;
 
     @RequestMapping("/login")
     public ModelAndView login(HttpServletRequest request, HttpServletResponse response){
@@ -33,12 +31,11 @@ public class LoginController {
     public String doLogin(HttpServletRequest request, HttpServletResponse response){
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        User user = userService.getUser(username);
-        if(user == null){
+        String token = userService.userLogin(username,password);
 
-        }else{
-            request.getSession().setAttribute("user",user);
-        }
+        Cookie cookie = CookieUtils.getInstance("user_token",token);
+        CookieUtils.setCookie(response,cookie);
+        Cookie[] cookies = request.getCookies();
         return null;
     }
 
