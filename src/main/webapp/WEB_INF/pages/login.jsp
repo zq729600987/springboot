@@ -14,7 +14,7 @@
     <div>
         <form id="login_form">
             <div>
-                <label>用户名:</label><input type="text" placeholder="请输入用户名" id="username">
+                <label>用户名:</label><input type="text" placeholder="请输入用户名" id="userno">
             </div>
             <div>
                 <label>密码:</label><input type="text" placeholder="请输入密码" id="password">
@@ -27,13 +27,16 @@
             $("#submit").click(function(){
                 $.ajax({
                     type:"post",
-                    url:"/doLogin",
+                    url:${basePath}+"doLogin",
                     data:{
-                        "username":$("#username").val(),
+                        "userno":$("#userno").val(),
                         "password":$("#password").val()
                     },
                     dataType:"json",
                     success:function (data) {
+                        console.log(data);
+                    },
+                    error:function(data){
                         console.log(data);
                     }
                 })

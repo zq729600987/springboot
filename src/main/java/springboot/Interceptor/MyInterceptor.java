@@ -5,7 +5,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import springboot.pojo.User;
+import springboot.util.CookieUtils;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,10 +18,13 @@ public class MyInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         boolean flag;
-        User user = (User) redisTemplate.opsForValue().get(request.getSession().getId());
-        //User user = (User)request.getSession().getAttribute("user");
+        Cookie cookie = CookieUtils.getCookie(request,"user_token");
+        if(cookie == null){
+            return false;
+        }
+
+        User user = (User) redisTemplate.opsForValue().get("user_" + cookie.getValue());
         if(null == user){
-            response.sendRedirect("login");
             flag = false;
         }else{
             flag = true;

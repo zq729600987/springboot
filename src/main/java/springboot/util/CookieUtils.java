@@ -27,4 +27,10 @@ public class CookieUtils {
     public static void setCookie(HttpServletResponse response, Cookie cookie){
         response.addCookie(cookie);
     }
+
+    public static void delCookie(HttpServletResponse response,String name){     //页面js操作
+        Cookie cookie = getInstance(name,null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+    }
 }

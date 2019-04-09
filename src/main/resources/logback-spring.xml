@@ -39,19 +39,24 @@
         <appender-ref ref="file" />
     </root>
 
+
+    <!-- 没设置打印级别，所以继承他的上级的日志级别"info";
+         没有设置addtivity，默认为true，将此loger的打印信息向上级传递;
+         没有设置appender，此loger本身不打印任何信息。-->
+    <!--<logger name="springboot.controller"/>-->
+
     <!-- 用来设置某一个包或者具体的某一个类的日志打印级别,additivity是否向上级传递log信息-->
-    <logger name="springboot.controller"/>
-    <!--<logger name="springboot.controller.LoginController" level="WARN" additivity="false">
+    <logger name="springboot.mapper" level="DEBUG" additivity="false">
         <appender-ref ref="console"/>
-    </logger>-->
+    </logger>
 
     <!-- 文件名称不是logback.xml,想使用spring扩展profile支持,要以logback-spring.xml命名 -->
     <!-- 测试环境+开发环境,多个使用逗号隔开. -->
-    <springProfile name="test,dev">
+    <!--<springProfile name="test,dev">
         <logger name="springboot.controller" level="INFO" />
-    </springProfile>
+    </springProfile>-->
     <!-- 生产环境. -->
-    <springProfile name="prod">
+    <!--<springProfile name="prod">
         <logger name="springboot.controller" level="ERROR" />
-    </springProfile>
+    </springProfile>-->
 </configuration>

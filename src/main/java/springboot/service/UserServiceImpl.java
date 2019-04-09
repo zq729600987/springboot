@@ -1,6 +1,5 @@
 package springboot.service;
 
-import com.alibaba.druid.support.json.JSONUtils;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -22,8 +21,8 @@ public class UserServiceImpl implements UserService {
     private RedisTemplate redisTemplate;
 
     @Override
-    public String userLogin(String username,String password){
-        User user = userMapper.getUser(username);
+    public String userLogin(String userno,String password){
+        User user = userMapper.getUser(userno);
         if(user == null){
             return "";
         }
@@ -32,7 +31,7 @@ public class UserServiceImpl implements UserService {
         }
         //生成token
         String token = UUID.randomUUID().toString();
-        redisTemplate.opsForValue().set("user_" + token, JSONUtils.toJSONString(user),1, TimeUnit.HOURS);
+        redisTemplate.opsForValue().set("user_" + token, user,1, TimeUnit.HOURS);
         return token;
     }
 

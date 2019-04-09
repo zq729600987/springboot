@@ -36,7 +36,6 @@ public class MyWebMvcConfigurerAdapter implements WebMvcConfigurer {
                         ResourceUtils.CLASSPATH_URL_PREFIX + "/public/");
         //访问外部目录
         //registry.addResourceHandler("/my/**").addResourceLocations("file:D:/my/");
-        //super.addResourceHandlers(registry);
     }
 
     /**
@@ -47,9 +46,8 @@ public class MyWebMvcConfigurerAdapter implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry){
         //new一个拦截器对象会导致bean注入为null
-        registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**").excludePathPatterns("/","/login","/doLogin","/error","/static/**");
-        //registry.addInterceptor(getMyInterceptor()).addPathPatterns("/**").excludePathPatterns("/","/login","/doLogin","/error","/static/**");
-        //super.addInterceptors(registry);
+        //registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**").excludePathPatterns("/","/login","/doLogin","/error","/static/**");
+        registry.addInterceptor(getMyInterceptor()).addPathPatterns("/**").excludePathPatterns("/","/login","/doLogin","/error","/static/**");
     }
 
     /**
@@ -61,7 +59,7 @@ public class MyWebMvcConfigurerAdapter implements WebMvcConfigurer {
      */
     @Override
     public void addViewControllers(ViewControllerRegistry registry){
-        //registry.addViewController("/").setViewName("login");
+        registry.addViewController("/").setViewName("login");
         registry.addViewController("/error").setViewName("forward:/login");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
         //super.addViewControllers(registry);

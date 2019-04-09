@@ -5,14 +5,19 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    @Id
+
     //@KeySql(useGeneratedKeys = true)   //配置主键策略
     //@KeySql(dialect = IdentityDialect.MYSQL)
     //@KeySql(sql = "select SEQ_ID.nextval from dual", order = ORDER.BEFORE)
+    @Id
     private Integer id;
+    private String userno;
     private String username;
     private String password;
-    private String name;
+    private String telephone;
+    private String cteatetime;
+    private String modifytime;
+    private String status;
 
     public Integer getId() {
         return id;
@@ -20,6 +25,14 @@ public class User implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getUserno() {
+        return userno;
+    }
+
+    public void setUserno(String userno) {
+        this.userno = userno;
     }
 
     public String getUsername() {
@@ -38,12 +51,35 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
+    public String getCteatetime() {
+        return cteatetime;
+    }
+
+    public void setCteatetime(String cteatetime) {
+        this.cteatetime = cteatetime;
+    }
+
+    public String getModifytime() {
+        return modifytime;
+    }
+
+    public void setModifytime(String modifytime) {
+        this.modifytime = modifytime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

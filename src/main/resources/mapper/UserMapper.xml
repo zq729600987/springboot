@@ -4,17 +4,22 @@
 
     <resultMap id="resultMap" type="springboot.pojo.User">
         <id column="id" property="id" jdbcType="INTEGER"  />
-        <result column="password" property="password" jdbcType="VARCHAR"/>
-        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="userno" property="userno" jdbcType="VARCHAR"/>
         <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="telephone" property="telephone" jdbcType="VARCHAR"/>
+        <result column="createtime" property="createtime" jdbcType="VARCHAR"/>
+        <result column="modifytime" property="modifytime" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="BOOLEAN"/>
     </resultMap>
 
-    <sql id="column">id,password,name,username</sql>
+    <sql id="column">id,userno,username,password,telephone</sql>
 
     <select id="getUser" resultMap="resultMap">
-        SELECT id,name,username
+        SELECT
+        <include refid="column"/>
         FROM user
-        WHERE username = #{username}
+        WHERE userno = #{userno} and status = '1'
     </select>
 
     <select id="getUserList" resultMap="resultMap">
