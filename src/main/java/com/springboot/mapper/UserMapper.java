@@ -1,13 +1,11 @@
 package com.springboot.mapper;
 
 import com.springboot.pojo.User;
-import com.util.CommonMapper;
-import org.apache.ibatis.annotations.Mapper;
+import com.utils.CommonMapper;
 
 import java.util.List;
 import java.util.Map;
 
-@Mapper
 public interface UserMapper extends CommonMapper<User> {
     //只要配置MyBatis时能注册或者扫描到通用接口，继承的通用接口提供的方法都可以使用，也可新增方法
     User getUser(String username);

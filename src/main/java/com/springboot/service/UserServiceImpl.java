@@ -1,6 +1,7 @@
 package com.springboot.service;
 
 import com.github.pagehelper.PageHelper;
+import com.utils.DynamicBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -21,18 +22,26 @@ public class UserServiceImpl implements UserService {
     private RedisTemplate redisTemplate;
 
     @Override
-    public String userLogin(String userno,String password){
+    public DynamicBean userLogin(String userno, String password){
+        DynamicBean back = new DynamicBean();
         User user = userMapper.getUser(userno);
         if(user == null){
-            return "";
+            back.put("returncode","1");
+            back.put("returnmsg","用户不存在");
+            return back;
         }
         if(!password.equals(user.getPassword())){
-            return "";
+            back.put("returncode","1");
+            back.put("returnmsg","用户名或密码错误");
+            return back;
         }
         //生成token
         String token = UUID.randomUUID().toString();
         redisTemplate.opsForValue().set("user_" + token, user,1, TimeUnit.HOURS);
-        return token;
+
+        back.put("returncode","0");
+        back.put("token",token);
+        return back;
     }
 
     @Override
