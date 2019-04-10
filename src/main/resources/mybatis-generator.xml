@@ -19,7 +19,7 @@
         <!-- 通用 Mapper 插件，可以生成带注解的实体类 -->
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
             <!-- 生成的mapper文件都继承通用mapper -->
-            <property name="mappers" value="springboot.util.CommonMapper" />
+            <property name="mappers" value="com.util.CommonMapper" />
             <!-- caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true -->
             <property name="caseSensitive" value="true"/>
             <!-- 是否强制生成注解 默认false，为true时不管数据库名和字段名是否一致 -->
@@ -31,9 +31,9 @@
             &lt;!&ndash; 一个表生成一个文件，或者多个表生成一个文件，默认为true&ndash;&gt;
             &lt;!&ndash;<property name="singleMode" value="false"/>&ndash;&gt;
             <property name="targetProject" value="src/test/java"/>
-            <property name="targetPackage" value="springboot.mapper"/>
+            <property name="targetPackage" value="com.springboot.mapper"/>
             &lt;!&ndash; mapperXml.ftl使用，生成 XML 时获取接口的包名 &ndash;&gt;
-            &lt;!&ndash;<property name="mapperPackage" value="springboot.mapper"/>&ndash;&gt;
+            &lt;!&ndash;<property name="mapperPackage" value="com.springboot.mapper"/>&ndash;&gt;
             &lt;!&ndash;mapper.ftl，mapperXml.ftl，test-one.ftl，test-all.ftl&ndash;&gt;
             <property name="templatePath" value="generator/mapper.ftl"/>
             <property name="mapperSuffix" value="Mapper"/>
@@ -59,7 +59,7 @@
         </javaTypeResolver>
 
         <!-- 生成实体类存放位置 -->
-        <javaModelGenerator targetPackage="springboot.pojo" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.springboot.pojo" targetProject="src/main/java">
             <!-- 如果true，MBG会根据catalog和schema来生成子包,默认false直接用targetPackage属性 -->
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
@@ -74,7 +74,7 @@
         <!-- 客户端代码，根据<context>的targetRuntime分类，MyBatis3Simple:
                 type="ANNOTATEDMAPPER"，生成基于注解的Mapper接口，无XML映射文件
                 type="XMLMAPPER"，生成SQLMap XML文件和独立的Mapper接口 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="springboot.mapper" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.springboot.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 

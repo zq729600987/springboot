@@ -8,7 +8,7 @@
     <artifactId>springboot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>springboot</name>
+    <name>com.springboot</name>
     <packaging>war</packaging>
     <description>A maven project to study SpringBoot</description>
 
@@ -146,7 +146,7 @@
 
     <build>
         <!--打包的名称,默认值是${artifactId}-${version}-->
-        <finalName>springboot</finalName>
+        <finalName>com.springboot</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -155,7 +155,7 @@
                 <configuration>
                     <fork>true</fork>
                     <!-- 项目运行main方法的全路径 -->
-                    <mainClass>springboot.MainController</mainClass>
+                    <mainClass>com.springboot.MainController</mainClass>
                 </configuration>
             </plugin>
 
@@ -182,7 +182,7 @@
                     <!-- 输出详细日志 -->
                     <verbose>true</verbose>
                     <!-- 是否覆盖 -->
-                    <overwrite>true</overwrite>
+                    <overwrite>false</overwrite>
                     <!-- 自动生成的配置 -->
                     <configurationFile>src/main/resources/mybatis-generator.xml</configurationFile>
                 </configuration>
