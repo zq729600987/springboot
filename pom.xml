@@ -181,7 +181,7 @@
                 <configuration>
                     <!-- 输出详细日志 -->
                     <verbose>true</verbose>
-                    <!-- 是否覆盖 -->
+                    <!-- 是否覆盖java文件 -->
                     <overwrite>false</overwrite>
                     <!-- 自动生成的配置 -->
                     <configurationFile>src/main/resources/mybatis-generator.xml</configurationFile>
