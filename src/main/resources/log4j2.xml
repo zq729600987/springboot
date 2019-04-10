@@ -37,7 +37,7 @@
 
     <Loggers>
         <!-- 为 com.test 包配置特殊的Log级别 -->
-        <Logger name="springboot.mapper" level="ERROR" />
+        <Logger name="com.springboot.mapper" level="ERROR" />
         <Root level="INFO">
             <AppenderRef ref="console"></AppenderRef>
             <AppenderRef ref="error"></AppenderRef>
