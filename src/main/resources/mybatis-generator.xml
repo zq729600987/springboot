@@ -19,7 +19,7 @@
         <!-- 通用 Mapper 插件，可以生成带注解的实体类 -->
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
             <!-- 生成的mapper文件都继承通用mapper -->
-            <property name="mappers" value="com.util.CommonMapper" />
+            <property name="mappers" value="com.utils.CommonMapper" />
             <!-- caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true -->
             <property name="caseSensitive" value="true"/>
             <!-- 是否强制生成注解 默认false，为true时不管数据库名和字段名是否一致 -->

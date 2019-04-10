@@ -27,7 +27,7 @@
             $("#submit").click(function(){
                 $.ajax({
                     type:"post",
-                    url:${basePath}+"doLogin",
+                    url:"doLogin",
                     data:{
                         "userno":$("#userno").val(),
                         "password":$("#password").val()

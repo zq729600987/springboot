@@ -45,8 +45,6 @@ public class MyWebMvcConfigurerAdapter implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry){
-        //new一个拦截器对象会导致bean注入为null
-        //registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**").excludePathPatterns("/","/login","/doLogin","/error","/static/**");
         registry.addInterceptor(getMyInterceptor()).addPathPatterns("/**").excludePathPatterns("/","/login","/doLogin","/error","/static/**");
     }
 
@@ -62,7 +60,6 @@ public class MyWebMvcConfigurerAdapter implements WebMvcConfigurer {
         registry.addViewController("/").setViewName("login");
         registry.addViewController("/error").setViewName("forward:/login");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
-        //super.addViewControllers(registry);
     }
 
 }
