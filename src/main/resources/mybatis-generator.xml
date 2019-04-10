@@ -2,29 +2,31 @@
 <!DOCTYPE generatorConfiguration
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!-- https://blog.csdn.net/isea533/article/details/42102297 -->
 <generatorConfiguration>
-    <!--加载配置文件，为下面读取数据库信息准备-->
+    <!-- 加载配置文件，为下面读取数据库信息准备 -->
     <properties resource="application.properties"/>
-
+    <!-- 使用MyBatis3Simple可以避免在后面的<table>中逐个进行配置,flat每一张表只生成一个实体类 -->
     <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
         <property name="javaFileEncoding" value="UTF-8"/>
-        <!--配置是否使用通用 Mapper 提供的注释工具，默认 true 在生成代码时会包含字段的注释，设置 false 后会用默认的-->
+        <property name="autoDelimitKeywords" value="true"/>
+        <!-- 开始和结束分隔符，对于有关键字的情况下适用 -->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <!-- 配置是否使用通用 Mapper 提供的注释工具，默认 true 在生成代码时会包含字段的注释，设置 false 后会用默认的 -->
         <!--<property name="useMapperCommentGenerator" value="true"/>-->
 
-        <!--通用 Mapper 插件，可以生成带注解的实体类-->
+        <!-- 通用 Mapper 插件，可以生成带注解的实体类 -->
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
-            <!--生成的mapper文件都继承通用mapper-->
+            <!-- 生成的mapper文件都继承通用mapper -->
             <property name="mappers" value="springboot.util.CommonMapper" />
-            <!--caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true-->
+            <!-- caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true -->
             <property name="caseSensitive" value="true"/>
-            <!--是否强制生成注解 默认false，为true时不管数据库名和字段名是否一致-->
+            <!-- 是否强制生成注解 默认false，为true时不管数据库名和字段名是否一致 -->
             <property name="forceAnnotation" value="false"/>
-            <!--开始和结束分隔符，对于有关键字的情况下适用-->
-            <property name="beginningDelimiter" value="`"/>
-            <property name="endingDelimiter" value="`"/>
         </plugin>
 
-        <!--通用代码生成器插件，一个模板只能生成一类的文件-->
+        <!-- 通用代码生成器插件，一个模板只能生成一类的文件 -->
         <!--<plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
             &lt;!&ndash; 一个表生成一个文件，或者多个表生成一个文件，默认为true&ndash;&gt;
             &lt;!&ndash;<property name="singleMode" value="false"/>&ndash;&gt;
@@ -38,49 +40,52 @@
             <property name="fileName" value="${tableClass.shortClassName}${mapperSuffix}.java"/>
         </plugin>-->
 
-        <!--数据库连接地址账号密码-->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <!-- 数据库连接地址账号密码 -->
         <jdbcConnection driverClass="${spring.datasource.driver-class-name}"
                         connectionURL="${spring.datasource.url}"
                         userId="${spring.datasource.username}"
                         password="${spring.datasource.password}">
-            <!--禁止根据自带的表生成文件-->
+            <!-- 禁止根据自带的表生成文件 -->
             <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>
 
         <javaTypeResolver>
+            <!-- 是否强制DECIMAL和NUMERIC类型的字段转换为java.math.BigDecimal,默认false -->
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <!--生成Model类存放位置-->
+        <!-- 生成实体类存放位置 -->
         <javaModelGenerator targetPackage="springboot.pojo" targetProject="src/main/java">
+            <!-- 如果true，MBG会根据catalog和schema来生成子包,默认false直接用targetPackage属性 -->
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <!--生成映射文件存放位置-->
+        <!-- 生成映射文件存放位置 -->
         <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <!--生成Dao类存放位置-->
-        <!-- 客户端代码，生成易于使用的针对Model对象和XML配置文件的代码
-                type="ANNOTATEDMAPPER",生成Java Model 和基于注解的Mapper对象
-                type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口-->
+        <!-- 生成Mapper接口存放位置 -->
+        <!-- 客户端代码，根据<context>的targetRuntime分类，MyBatis3Simple:
+                type="ANNOTATEDMAPPER"，生成基于注解的Mapper接口，无XML映射文件
+                type="XMLMAPPER"，生成SQLMap XML文件和独立的Mapper接口 -->
         <javaClientGenerator type="XMLMAPPER" targetPackage="springboot.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <!--生成对应表及类名 去掉Mybatis Generator生成的一堆 example -->
-        <table tableName="user" domainObjectName="userTest"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        <!--生成对应表，可以使用SQL通配符匹配多个表，domainObjectName生成对象的基本名称。-->
+        <table tableName="%">
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
+            <!-- :生成的SQL中的表名将不会包含schema和catalog前缀 -->
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <!--oracle 配置-->
+            <!--<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>-->
         </table>
 
-        <!--<table tableName="user%">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>-->
     </context>
 </generatorConfiguration>

@@ -1,16 +1,18 @@
 package springboot;
 
-import org.mybatis.spring.annotation.MapperScan;
+import tk.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import springboot.util.CommonMapper;
 
 
 /*
 * 外部tomcat部署需要继承SpringBootServletInitializer,重写configure方法
  */
 @SpringBootApplication
+@MapperScan(basePackages = "springboot.mapper",markerInterface = CommonMapper.class)
 public class MainController extends SpringBootServletInitializer {
 
     @Override

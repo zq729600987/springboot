@@ -3,21 +3,21 @@
 <mapper namespace="springboot.mapper.UserMapper">
 
     <resultMap id="resultMap" type="springboot.pojo.User">
-        <id column="id" property="id" jdbcType="INTEGER"  />
-        <result column="userno" property="userno" jdbcType="VARCHAR"/>
-        <result column="username" property="username" jdbcType="VARCHAR"/>
-        <result column="password" property="password" jdbcType="VARCHAR"/>
-        <result column="telephone" property="telephone" jdbcType="VARCHAR"/>
-        <result column="createtime" property="createtime" jdbcType="VARCHAR"/>
-        <result column="modifytime" property="modifytime" jdbcType="VARCHAR"/>
-        <result column="status" property="status" jdbcType="BOOLEAN"/>
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="userno" jdbcType="VARCHAR" property="userno" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+        <result column="createtime" jdbcType="VARCHAR" property="createtime" />
+        <result column="modifytime" jdbcType="VARCHAR" property="modifytime" />
+        <result column="status" jdbcType="BOOLEAN" property="status" />
     </resultMap>
 
     <sql id="column">id,userno,username,password,telephone</sql>
 
     <select id="getUser" resultMap="resultMap">
         SELECT
-        <include refid="column"/>
+        <include refid="column" />
         FROM user
         WHERE userno = #{userno} and status = '1'
     </select>
@@ -29,18 +29,18 @@
     </select>
 
     <!--对应 @KeySql(useGeneratedKeys = true)，JDBC支持通过 getGeneratedKeys 方法取回主键的情况-->
-    <!--<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    <!--&lt;insert id="insert" useGeneratedKeys="true" keyProperty="id"&gt;
         insert into country (id, countryname, countrycode)
         values (#{id},#{countryname},#{countrycode})
-    </insert>-->
+    &lt;/insert&gt;-->
 
     <!--对应 @KeySql(dialect = IdentityDialect.MYSQL)-->
-    <!--<insert id="insertUser">
-        <selectKey keyProperty="id" resultType="int" order="AFTER">
+    <!--&lt;insert id="insertUser"&gt;
+        &lt;selectKey keyProperty="id" resultType="int" order="AFTER"&gt;
             SELECT LAST_INSERT_ID()
-        </selectKey>
+        &lt;/selectKey&gt;
         insert into user
-        <include refid="column"/>
+        &lt;include refid="column"/&gt;
         values (#{id},#{password},#{name},#{username})
-    </insert>-->
+    &lt;/insert&gt;-->
 </mapper>
