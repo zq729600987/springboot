@@ -1,12 +1,12 @@
 package com.springboot.service;
 
 import com.github.pagehelper.PageHelper;
+import com.springboot.mapper.UserMapper;
+import com.springboot.pojo.User;
 import com.utils.DynamicBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import com.springboot.mapper.UserMapper;
-import com.springboot.pojo.User;
 
 import java.util.List;
 import java.util.Map;
