@@ -35,9 +35,11 @@ public class UserServiceImpl implements UserService {
             back.put("returnmsg","用户名或密码错误");
             return back;
         }
+
         //生成token
         String token = UUID.randomUUID().toString();
-        redisTemplate.opsForValue().set("user_" + token, user,1, TimeUnit.HOURS);
+        user.setPassword(null);
+        redisTemplate.opsForValue().set("user_" + token, user,30, TimeUnit.MINUTES);
 
         back.put("returncode","0");
         back.put("token",token);

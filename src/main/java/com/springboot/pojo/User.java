@@ -4,6 +4,9 @@ package com.springboot.pojo;
 import javax.persistence.Id;
 import java.io.Serializable;
 
+/**
+ * redis保存对象要求对象是序列化的
+ * */
 public class User implements Serializable {
 
     @Id

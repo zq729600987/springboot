@@ -11,7 +11,6 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 * 外部tomcat部署需要继承SpringBootServletInitializer,重写configure方法
  */
 @SpringBootApplication
-@MapperScan(basePackages = {"com.springboot.mapper"})
 public class MainController extends SpringBootServletInitializer {
 
     @Override

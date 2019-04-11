@@ -1,15 +1,16 @@
 package com.springboot.Interceptor;
 
+import com.springboot.pojo.User;
+import com.utils.CookieUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import com.springboot.pojo.User;
-import com.utils.CookieUtil;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.concurrent.TimeUnit;
 
 public class MyInterceptor implements HandlerInterceptor {
     @Autowired
@@ -17,14 +18,19 @@ public class MyInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        boolean flag;
-        Cookie cookie = CookieUtil.getCookie(request,"user_token");
-        if(cookie == null){
-            return false;
+        boolean flag = false;
+        String token = CookieUtil.getCookieValue(request,"user_token");
+        if(StringUtils.isBlank(token)){
+            return flag;
         }
 
-        User user = (User) redisTemplate.opsForValue().get("user_" + cookie.getValue());
-        flag = null != user;
+        User user = (User) redisTemplate.opsForValue().get("user_" + token);
+        if(null != user){
+            redisTemplate.opsForValue().set("user_" + token, user,1, TimeUnit.HOURS);
+            flag = true;
+        }else{
+            flag = false;
+        }
         return flag;
     }
 

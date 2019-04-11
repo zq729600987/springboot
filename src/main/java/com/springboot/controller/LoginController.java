@@ -35,14 +35,14 @@ public class LoginController {
 
     @RequestMapping("/doLogin")
     @ResponseBody
-    public Map doLogin(HttpServletRequest request, HttpServletResponse response){
+    public Map<String,Object> doLogin(HttpServletRequest request, HttpServletResponse response){
         DynamicBean back = new DynamicBean();
 
         Cookie cookie = CookieUtil.getCookie(request,"user_token");
         if(cookie != null){
             User user = (User) redisTemplate.opsForValue().get("user_" + cookie.getValue());
             if(null != user){
-                back.put("returncode","success");
+                back.put("returncode","0");
                 back.put("returnmsg","登录成功");
                 return back;
             }
@@ -64,8 +64,17 @@ public class LoginController {
         return back;
     }
 
+    @RequestMapping("/index")
+    public ModelAndView index(HttpServletRequest request,HttpServletResponse response){
+        return new ModelAndView("index");
+    }
+
     @RequestMapping("/logout")
     public ModelAndView logout(HttpServletRequest request, HttpServletResponse response){
+        Cookie cookie = CookieUtil.getCookie(request,"user_token");
+        if(cookie != null){
+            redisTemplate.delete("user_" + cookie.getValue());
+        }
         return new ModelAndView("login");
     }
 }

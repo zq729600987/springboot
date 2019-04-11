@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
 <%
+    //应用的根目录:/项目名称
     String path = request.getContextPath();
+    //http  localhost  8080，设定基础路径为web应用根目录
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <!DOCTYPE HTML>
@@ -34,10 +36,14 @@
                     },
                     dataType:"json",
                     success:function (data) {
-                        console.log(data);
+                        if(data.returncode == 0){
+                            window.location.href = "/index";
+                        }else{
+                            alert(data.returnmsg);
+                        }
                     },
                     error:function(data){
-                        console.log(data);
+                        console.log("error");
                     }
                 })
             });

@@ -24,13 +24,22 @@ public class CookieUtil {
         return null;
     }
 
+    public static String getCookieValue(HttpServletRequest request,String name){
+        Cookie[] cookies = request.getCookies();
+        for(Cookie cookie : cookies){
+            if(name.equals(cookie.getName())){
+                return cookie.getValue();
+            }
+        }
+        return null;
+    }
+
     public static void setCookie(HttpServletResponse response, Cookie cookie){
         response.addCookie(cookie);
     }
 
-    public static void delCookie(HttpServletResponse response,String name){     //页面js操作
-        Cookie cookie = getInstance(name,null);
+    public static void delCookie(HttpServletRequest request,HttpServletResponse response,String name){     //页面js操作
+        Cookie cookie = getCookie(request,name);
         cookie.setMaxAge(0);
-        response.addCookie(cookie);
     }
 }
