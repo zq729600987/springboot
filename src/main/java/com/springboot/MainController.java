@@ -1,10 +1,10 @@
 package com.springboot;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
 
 
 /*
@@ -23,7 +23,8 @@ public class MainController extends SpringBootServletInitializer {
         //System.setProperty("spring.devtools.restart.enabled","false");
         /*禁用命令行赋值*/
         //SpringApplication.setAddCommandLineProperties(false);
-        SpringApplication.run(MainController.class,args);
+        ConfigurableApplicationContext context = SpringApplication.run(MainController.class,args);
+        System.out.println(context.getEnvironment().getProperty("logging.config"));
 
         /*取消Spring启动标识*/
         /*SpringApplication springApplication = new SpringApplication(MainController.class);
