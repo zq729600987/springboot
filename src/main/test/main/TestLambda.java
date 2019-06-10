@@ -17,13 +17,13 @@ public class TestLambda {
             }
         };
 
-        /*Collections.sort(userList, new Comparator<User>() {
+        Collections.sort(userList, new Comparator<User>() {
             @Override
             public int compare(User o1, User o2) {
                 return Integer.compare(o1.getId(), o2.getId());
             }
         });
-        Collections.sort(userList, (o1, o2) -> Integer.compare(o1.getId(), o2.getId()));*/
+        Collections.sort(userList, (o1, o2) -> Integer.compare(o1.getId(), o2.getId()));
         Collections.sort(userList, Comparator.comparingInt(User::getId));
 
         new Thread(new Runnable() {
