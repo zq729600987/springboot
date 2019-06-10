@@ -16,7 +16,9 @@ public class User implements Serializable {
 
     public User(){}
 
-    public User(Integer id){}
+    public User(Integer id){
+        this.id = id;
+    }
 
     public Integer getId() {
         return id;
