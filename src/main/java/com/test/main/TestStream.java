@@ -2,16 +2,32 @@ package com.test.main;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class TestStream {
     public static void main(String[] args) {
         //创建一个空的stream
-        Stream<Integer> stream  = Stream.empty();
+        Stream<Integer> stream = Stream.empty();        //比IntStream boxing 和 unboxing 耗时
+        //stream.collect(Collectors.toCollection(ArrayList::new));      //参数类型Supplier<T>?
+        List<Integer> list = stream.collect(Collectors.toList());
+
+        //一对多映射
+        Stream<List<Integer>> inputStream = Stream.of(
+                Arrays.asList(1),
+                Arrays.asList(2, 3),
+                Arrays.asList(4, 5, 6)
+        );
+        Stream<Integer> outputStream = inputStream.flatMap((childList) -> childList.stream());
+
+        //静态工厂
+        IntStream.range(1, 3).forEach(System.out::println);
+        IntStream.rangeClosed(1, 3).forEach(System.out::println);
 
         //合并所有值
         String[] strArray = {"H","e","l","l","o"};
@@ -55,6 +71,12 @@ public class TestStream {
         filter(languages, x -> false);
         System.out.println("Language length bigger three: ");
         filter(languages, x -> x.length() > 4);
+
+        //Optional用例,提供的是编译时检查,为了尽可能避免NullPointerException
+        print("abcd");
+        print(null);
+        getLength("abcd");
+        getLength(null);
     }
 
     public static void filter(List<String> languages, Predicate<String> condition) {
@@ -74,5 +96,21 @@ public class TestStream {
                 System.out.println(s + " ");
             }
         });
+    }
+
+    public static void print(String text) {
+        // Java 8
+        Optional.ofNullable(text).ifPresent(System.out::println);
+        // Pre-Java 8
+        if (text != null) {
+            System.out.println(text);
+        }
+    }
+
+    public static int getLength(String text) {
+        // Java 8
+        return Optional.ofNullable(text).map(String::length).orElse(-1);
+        // Pre-Java 8
+        //return if (text != null) ? text.length() : -1;
     }
 }
