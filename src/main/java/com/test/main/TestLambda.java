@@ -1,4 +1,4 @@
-package main;
+package com.test.main;
 
 import pojo.User;
 
