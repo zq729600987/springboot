@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.ToIntFunction;
 
 public class TestLambda{
     public static void main(String[] args) {
@@ -25,6 +26,13 @@ public class TestLambda{
             }
         });
         Collections.sort(userList, (o1, o2) -> Integer.compare(o1.getId(), o2.getId()));
+
+        Collections.sort(userList, Comparator.comparingInt(new ToIntFunction<User>() {
+            @Override
+            public int applyAsInt(User user) {
+                return user.getId();
+            }
+        }));
         Collections.sort(userList, Comparator.comparingInt(User::getId));
 
         new Thread(new Runnable() {
