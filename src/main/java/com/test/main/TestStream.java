@@ -1,9 +1,7 @@
 package com.test.main;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
+import java.util.concurrent.ForkJoinPool;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -14,10 +12,10 @@ import java.util.stream.Stream;
 public class TestStream {
     public static void filter(List<String> languages, Predicate<String> condition) {
         languages.stream().filter(x -> condition.test(x)).forEach(x -> System.out.println(x + " "));
-        //同上
+
         languages.stream().filter(condition::test).forEach(System.out::println);
         languages.stream().filter(condition).forEach(x -> System.out.println(x + " "));
-        //同上
+
         languages.stream().filter(new Predicate<String>() {
             @Override
             public boolean test(String s) {
@@ -60,6 +58,7 @@ public class TestStream {
                 Arrays.asList(4, 5, 6)
         );
         Stream<Integer> outputStream = inputStream.flatMap((childList) -> childList.stream());
+        //Stream<Integer> outputStream = inputStream.flatMap(Collection::stream);
 
         //静态工厂
         IntStream.range(1, 3).forEach(System.out::println);
@@ -91,7 +90,7 @@ public class TestStream {
         List<String> languages = Arrays.asList("Java", "Python", "scala", "Shell", "R");
         System.out.println("Language starts with J: ");
         filter(languages, x -> x.startsWith("J"));
-        //同上
+
         filter(languages, new Predicate<String>() {
             @Override
             public boolean test(String s) {
@@ -114,15 +113,27 @@ public class TestStream {
         getLength("abcd");
         getLength(null);
 
-        //Supplier 实例
+        //创建Supplier 实例,通过generate方法生成Stream对象
         Random random = new Random();
-        //Supplier<Integer> integerSupplier = random::nextInt;
-        //同上
-        Supplier<Integer> integerSupplier = new Supplier<Integer>() {
+        /*Supplier<Integer> integerSupplier = new Supplier<Integer>() {
             @Override
             public Integer get() {
                 return random.nextInt();
             }
-        };
+        };*/
+
+        Supplier<Integer> integerSupplier = random::nextInt;
+        Stream.generate(integerSupplier).limit(10).forEach(System.out::println);
+        //无限流,和generate一样需要limit
+        Stream.iterate(1,n -> n * 2).forEach(System.out::println);
+
+        List<Double> list2 = new ArrayList<Double>();
+        for(int i=0;i<10000000;i++){
+            double d = Math.random() * 1000;
+            list2.add(d);
+        }
+        //自定义并行流线程池大小
+        ForkJoinPool forkJoinPool = new ForkJoinPool(2);
+        list2.stream().parallel().sorted().collect(Collectors.toList());
     }
 }
