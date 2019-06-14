@@ -6,11 +6,47 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class TestStream {
+    public static void filter(List<String> languages, Predicate<String> condition) {
+        languages.stream().filter(x -> condition.test(x)).forEach(x -> System.out.println(x + " "));
+        //同上
+        languages.stream().filter(condition::test).forEach(System.out::println);
+        languages.stream().filter(condition).forEach(x -> System.out.println(x + " "));
+        //同上
+        languages.stream().filter(new Predicate<String>() {
+            @Override
+            public boolean test(String s) {
+                return condition.test(s);
+            }
+        }).forEach(new Consumer<String>() {
+            @Override
+            public void accept(String s) {
+                System.out.println(s + " ");
+            }
+        });
+    }
+
+    public static void print(String text) {
+        // Java 8
+        Optional.ofNullable(text).ifPresent(System.out::println);
+        // Pre-Java 8
+        if (text != null) {
+            System.out.println(text);
+        }
+    }
+
+    public static int getLength(String text) {
+        // Java 8
+        return Optional.ofNullable(text).map(String::length).orElse(-1);
+        // Pre-Java 8
+        //return if (text != null) ? text.length() : -1;
+    }
+
     public static void main(String[] args) {
         //创建一个空的stream
         Stream<Integer> stream = Stream.empty();        //比IntStream boxing 和 unboxing 耗时
@@ -77,40 +113,16 @@ public class TestStream {
         print(null);
         getLength("abcd");
         getLength(null);
-    }
 
-    public static void filter(List<String> languages, Predicate<String> condition) {
-        languages.stream().filter(x -> condition.test(x)).forEach(x -> System.out.println(x + " "));
+        //Supplier 实例
+        Random random = new Random();
+        //Supplier<Integer> integerSupplier = random::nextInt;
         //同上
-        languages.stream().filter(condition::test).forEach(System.out::println);
-        languages.stream().filter(condition).forEach(x -> System.out.println(x + " "));
-        //同上
-        languages.stream().filter(new Predicate<String>() {
+        Supplier<Integer> integerSupplier = new Supplier<Integer>() {
             @Override
-            public boolean test(String s) {
-                return condition.test(s);
+            public Integer get() {
+                return random.nextInt();
             }
-        }).forEach(new Consumer<String>() {
-            @Override
-            public void accept(String s) {
-                System.out.println(s + " ");
-            }
-        });
-    }
-
-    public static void print(String text) {
-        // Java 8
-        Optional.ofNullable(text).ifPresent(System.out::println);
-        // Pre-Java 8
-        if (text != null) {
-            System.out.println(text);
-        }
-    }
-
-    public static int getLength(String text) {
-        // Java 8
-        return Optional.ofNullable(text).map(String::length).orElse(-1);
-        // Pre-Java 8
-        //return if (text != null) ? text.length() : -1;
+        };
     }
 }

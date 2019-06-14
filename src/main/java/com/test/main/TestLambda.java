@@ -34,5 +34,6 @@ public class TestLambda{
             }
         }).start();
         new Thread(() -> System.out.println("hello world")).start();
+        new Thread(System.out::println).start();
     }
 }
