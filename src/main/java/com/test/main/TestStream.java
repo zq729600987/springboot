@@ -8,6 +8,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+//import static java.util.stream.Collectors.toList;
 
 public class TestStream {
     public static void filter(List<String> languages, Predicate<String> condition) {
@@ -125,7 +126,7 @@ public class TestStream {
         Supplier<Integer> integerSupplier = random::nextInt;
         Stream.generate(integerSupplier).limit(10).forEach(System.out::println);
         //无限流,和generate一样需要limit
-        Stream.iterate(1,n -> n * 2).forEach(System.out::println);
+        Stream.iterate(1,n -> n * 2).limit(5).forEach(System.out::println);
 
         List<Double> list2 = new ArrayList<Double>();
         for(int i=0;i<10000000;i++){
