@@ -47,12 +47,9 @@ public class TestLambda{
                         System.out.println("username排序 o1:" + o1.getUsername() + " o2:" + o2.getUsername());
                         return o1.getUsername().compareTo(o2.getUsername());
                     }
-                }.thenComparing(new Comparator<User>() {
-                    @Override
-                    public int compare(User o1, User o2) {
-                        System.out.println("username倒序 o1:" + o1.getUsername() + " o2:" + o2.getUsername());
-                        return o2.getUsername().compareTo(o1.getUsername());
-                    }
+                }.thenComparing((o1, o2) -> {
+                    System.out.println("username倒序 o1:" + o1.getUsername() + " o2:" + o2.getUsername());
+                    return o2.getUsername().compareTo(o1.getUsername());
                 })));
         //同上
         /*Collections.sort(userList, Comparator.comparingInt(User::getId)
