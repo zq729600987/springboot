@@ -1,5 +1,4 @@
-package pojo;
-
+package com.test.pojo;
 
 import java.io.Serializable;
 
@@ -14,10 +13,9 @@ public class User implements Serializable {
     private String modifytime;
     private String status;
 
-    public User(){}
-
-    public User(Integer id){
+    public User(Integer id,String username){
         this.id = id;
+        this.username = username;
     }
 
     public Integer getId() {
