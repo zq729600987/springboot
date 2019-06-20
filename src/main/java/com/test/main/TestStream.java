@@ -1,7 +1,6 @@
 package com.test.main;
 
 import java.util.*;
-import java.util.concurrent.ForkJoinPool;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -133,8 +132,6 @@ public class TestStream {
             double d = Math.random() * 1000;
             list2.add(d);
         }
-        //自定义并行流线程池大小
-        ForkJoinPool forkJoinPool = new ForkJoinPool(2);
         list2.stream().parallel().sorted().collect(Collectors.toList());
     }
 }
