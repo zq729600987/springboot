@@ -34,10 +34,10 @@ class TestRecursiveAction extends RecursiveAction {
             }
         }else{
             int middle =(start+end)/2;
-            RecursiveAction recursiveActionTwo = new TestRecursiveAction(start,middle);
-            RecursiveAction recursiveActionThree = new TestRecursiveAction(middle,end);
-            recursiveActionTwo.fork();
-            recursiveActionThree.fork();
+            RecursiveAction actionOne = new TestRecursiveAction(start,middle);
+            RecursiveAction actionTwo = new TestRecursiveAction(middle,end);
+            actionOne.fork();
+            actionTwo.fork();
         }
     }
 }
